@@ -8,6 +8,6 @@ RUN pipenv install --system
 
 
 EXPOSE 8501
-RUN echo "BACKEND_URL=http://backend:8080" > ./src.env
+RUN echo "BACKEND_URL=http://backend:8080" > ./src/.env
 
 CMD ["streamlit", "run", "src/main.py"]
