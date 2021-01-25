@@ -18,16 +18,22 @@ def is_authenticated(id: str, password: str) -> bool:
 
 
 def main_screen():
-
+    uploadedfile = st.file_uploader("upload")
     if st.button("Check Backend Connection"):
-        res = requests.get(BACKEND_URL)
+        files = {"file": uploadedfile.getvalue()}
+        res = requests.post(f"{BACKEND_URL}/files/", files=files)
         st.write(res.text)
 
 
 if __name__ == "__main__":
+    uploadedfile = st.file_uploader("upload")
+    if st.button("Check Backend Connection"):
+        files = {"file": uploadedfile.getvalue()}
+        res = requests.post(f"{BACKEND_URL}/files/", files=files)
+        st.write(res.text)
     # Password Form
     st.title("Welcome APP!")
-    logging.info(f"backend_url is {BACKEND_URL}")
+    # logging.info(f"backend_url is {BACKEND_URL}")
     id_block = st.empty()
     password_block = st.empty()
     id = id_block.text_input('Id')
@@ -35,6 +41,9 @@ if __name__ == "__main__":
     if is_authenticated(id, password):
         id_block.empty()
         password_block.empty()
-        main_screen()
+        # main_screen()
+        res = requests.get(f"{BACKEND_URL}/")
+        st.write(res.text)
+
     elif password:
         st.info("Please enter a valid password")

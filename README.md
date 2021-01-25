@@ -1,5 +1,6 @@
 # fastapi_websocket
 
+## commands
 `docker build -t backend-api ./backend/`
 
 `docker run --rm -d -p 8080:8080 --name backend-fast-api backend-api`
@@ -8,6 +9,9 @@
 `docker build -t frontend-api ./frontend/`
 
 `docker run --rm -d -p 8501:8501 --name frontend-streamlit frontend-api`
+
+`docker-compose up -d --build`
+`docker-compose stop`
 
 ## TODO
 ログイン認証

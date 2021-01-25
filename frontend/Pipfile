@@ -19,6 +19,6 @@ pytest-cov = "*"
 python_version = "3.9"
 
 [scripts]
-start = "uvicorn src.main:app --reload"
+start = "streamlit run src/main.py"
 lint = "flake8 . --count --show-source --statistics --exclude tests"
 test = "pytest -v --cov=. --capture=sys"
