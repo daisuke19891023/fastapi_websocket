@@ -1,6 +1,24 @@
 version: "3"
 
 services:
+  db:
+    image: "fastapi_starter_db:0.1.0"
+    container_name: "fastapi_starter_db"
+    build:
+      context: ./docker/db
+      dockerfile: Dockerfile
+    restart: always
+    tty: true
+    expose:
+      - "3306"
+    volumes:
+      - ./docker/db/conf.d:/etc/mysql/conf.d:cached
+      - ./log/db:/var/log/mysql:cached
+    networks:
+      - fastapi_network
+    environment:
+      APP_ENV: "development"
+      TZ: "Asia/Tokyo"
   frontend:
     build: frontend
     ports:
@@ -11,3 +29,12 @@ services:
     build: backend
     ports:
       - 8080:8080
+
+networks:
+  default:
+    external:
+      name: bridge
+  fastapi_network:
+    name: fastapi_network
+    driver: bridge
+    external: true

@@ -6,15 +6,21 @@ name = "pypi"
 [packages]
 numpy = "1.13.2"
 fastapi = "*"
-uvicorn = "*"
+SQLAlchemy= "*"
+sqlalchemy_utils ="*"
 requests ="*"
 python-multipart = "*"
+mysqlclient ="*"
+alembic = "*"
+python-dotenv = "*"
+backend = {editable = true, path = "."}
 
 [dev-packages]
 autopep8 = "*"
 flake8 = "*"
 pytest = "*"
 pytest-cov = "*"
+uvicorn = "*"
 
 [requires]
 python_version = "3.9"
