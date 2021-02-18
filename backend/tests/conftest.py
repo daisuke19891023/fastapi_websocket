@@ -4,13 +4,14 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy_utils import database_exists, drop_database
 from src.backend.database import Base
 
+TEST_SQLALCHEMY_DATABASE_URL = "sqlite:///./test_temp.db"
+engine = create_engine(TEST_SQLALCHEMY_DATABASE_URL, encoding='utf-8',
+                       connect_args={"check_same_thread": False})
+
 
 @pytest.fixture(scope="function")
 def SessionLocal():
     # settings of test database
-    TEST_SQLALCHEMY_DATABASE_URL = "sqlite:///./test_temp.db"
-    engine = create_engine(TEST_SQLALCHEMY_DATABASE_URL, encoding='utf-8',
-                           connect_args={"check_same_thread": False})
 
     assert not database_exists(
         TEST_SQLALCHEMY_DATABASE_URL), "Test database already exists. Aborting tests."
