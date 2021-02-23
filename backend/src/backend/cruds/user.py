@@ -2,12 +2,16 @@
 
 from fastapi import HTTPException
 from src.backend.models import User
+from sqlalchemy.exc import DatabaseError, DataError
 from sqlalchemy.orm import Session
 from src.backend.schemas.user import UserCreate as UserCreateSchema
 from starlette.status import HTTP_404_NOT_FOUND
 from uuid import UUID
 # from src.backend.cruds.user import UserCreate
 from hashlib import md5 as hash_func
+from backend.cruds import get_module_logger
+
+logger = get_module_logger(__name__)
 
 
 def read_users(db: Session):
@@ -18,7 +22,7 @@ def read_users(db: Session):
 def read_user(db: Session, user_id: UUID):
     try:
         item = db.query(User).get(user_id)
-    except BaseException:
+    except (DatabaseError, DataError) as e:
         raise HTTPException(status_code=HTTP_404_NOT_FOUND,
                             detail='Record not found.')
 
